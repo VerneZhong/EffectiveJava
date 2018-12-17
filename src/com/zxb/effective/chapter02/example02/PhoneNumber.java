@@ -27,7 +27,7 @@ import java.util.Map;
  * @author Mr.zxb
  * @date 2018-12-13 16:18
  */
-public class PhoneNumber {
+public class PhoneNumber implements Comparable<PhoneNumber> {
 
     private final short areaCode;
     private final short prefix;
@@ -71,6 +71,45 @@ public class PhoneNumber {
         return result;
     }
 
+    @Override
+    public int compareTo(PhoneNumber o) {
+        // Compare area codes
+//        if (areaCode < o.areaCode) {
+//            return -1;
+//        }
+//        if (areaCode > o.areaCode) {
+//            return 1;
+//        }
+//        // Area codes are equal, compare prefixes
+//        if (prefix < o.prefix) {
+//            return -1;
+//        }
+//        if (prefix > o.prefix) {
+//            return 1;
+//        }
+//        if (lineNumber < o.lineNumber) {
+//            return -1;
+//        }
+//        if (lineNumber > o.lineNumber) {
+//            return 1;
+//        }
+
+        // 优化如下：但使用起来非常小心，除非你确定相关的域不会为负值
+        int areaCodeDiff = areaCode - o.areaCode;
+        if (areaCodeDiff != 0) {
+            return areaCodeDiff;
+        }
+        int prefixDiff = prefix - o.prefix;
+        if (prefixDiff != 0) {
+            return prefixDiff;
+        }
+        int lineNumberDiff = lineNumber - o.lineNumber;
+        if (lineNumberDiff != 0) {
+            return lineNumberDiff;
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
 
         Map<PhoneNumber, String> map = new HashMap<>();
@@ -79,4 +118,5 @@ public class PhoneNumber {
         System.out.println(map.get(new PhoneNumber(707, 867, 5309)));
 
     }
+
 }

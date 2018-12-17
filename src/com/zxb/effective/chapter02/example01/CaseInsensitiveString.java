@@ -53,7 +53,7 @@ public final class CaseInsensitiveString implements Comparable<CaseInsensitiveSt
 
     @Override
     public int compareTo(CaseInsensitiveString o) {
-        return 0;
+        return String.CASE_INSENSITIVE_ORDER.compare(s, o.s);
     }
 
     public static void main(String[] args) {
